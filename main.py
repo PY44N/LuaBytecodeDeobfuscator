@@ -14,10 +14,10 @@ bytecode = pattern.search(script)
 output = ""
 
 for i in bytecode.group(0).split("\\"):
-    try: #Why can't python just let me check if something can be cast to an int?
+    try: # Why can't python just let me check if something can be cast to an int?
         output += chr(int(i))
-    except:
-        continue
+    except: # and I can't just not have an except 
+        continue # Next project I am going back to lua or typescript
         
 
 f = open("Out.lua", "w")
