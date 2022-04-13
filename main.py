@@ -1,5 +1,3 @@
-from curses.ascii import isdigit
-from numpy import outer
 import regex
 
 f = open("Input.lua", 'r')
