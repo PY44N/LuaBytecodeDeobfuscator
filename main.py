@@ -5,7 +5,7 @@ script = f.read()
 f.close()
 
 
-pattern = regex.compile(r"""(?<=(loadstring|load)\(("|'|\[\[)).+(?=("|'|\]\])\)\(\))""")
+pattern = regex.compile(r"""(?<=load(string)?\(("|'|\[\[)).+(?=("|'|\]\])\)\(\))""")
 
 bytecode = pattern.search(script)
 
