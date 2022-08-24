@@ -2,12 +2,6 @@
 
 Deobfuscates Lua Bytecode
 
-## Installation
-
-- Install [Python](https://www.python.org/)
-
 ## Usage
 
-1. Put your obfuscated script in **Input.lua**
-2. Open **run.bat**
-3. Your deobfuscated script should show up in Out.lua
+Run the executable with the path to the file (will default to Input.lua if not given path) and it will print the deobfuscated code.
