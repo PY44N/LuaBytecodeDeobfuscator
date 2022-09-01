@@ -1,42 +1,23 @@
 use regex::Regex;
 use std::{env, fs};
 
-fn get_loadstring(input_code: String) -> String {
-    let regex = Regex::new(r#"load(string)?\(("|'|\[\[).+("|'|\]\])\)\(\)"#)
-        .expect("Failed to compile regex");
-    let mut bytecode = String::new();
+fn get_regex(input: String, regex: &str) -> String {
+    let regex = Regex::new(regex).expect("Failed to compile regex");
+    let mut output = String::new();
 
-    for capture in regex.find(&input_code) {
+    for capture in regex.find(&input) {
         for i in capture.start()..capture.end() {
-            bytecode.push(
-                input_code
+            output.push(
+                input
                     .chars()
                     .nth(i)
-                    .expect(&format!("Failed to get index {} in code string", i)),
+                    .expect(&format!("Failed to get index {} in regex", i)),
             );
         }
         break;
     }
 
-    return bytecode;
-}
-
-fn get_bytecode(input: String) -> String {
-    let regex = Regex::new(r#"(\\\d+)+"#).expect("Failed to compile regex");
-    let mut bytecode_string = String::new();
-
-    for capture in regex.find(&input) {
-        for i in capture.start()..capture.end() {
-            bytecode_string.push(
-                input
-                    .chars()
-                    .nth(i)
-                    .expect(&format!("Failed to get index {} in code string", i)),
-            );
-        }
-    }
-
-    return bytecode_string;
+    return output;
 }
 
 fn main() {
@@ -51,9 +32,9 @@ fn main() {
         input_code = fs::read_to_string("Input.lua").expect("File Input.lua does not exist");
     }
 
-    let loadstring = get_loadstring(input_code);
+    let loadstring = get_regex(input_code, r#"load(string)?\(("|'|\[\[).+("|'|\]\])\)\(\)"#);
 
-    let bytecode = get_bytecode(loadstring);
+    let bytecode = get_regex(loadstring, r#"(\\\d+)+"#);
 
     let mut code = String::new();
 
